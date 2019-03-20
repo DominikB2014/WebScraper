@@ -34,3 +34,10 @@ def getCar(url:str):
         values.append(car[1])
 
     return categories, values
+
+def start_scrape():
+    response = requests.get(cars.com)
+
+    # Parse HTML and save to Beautifu lSoup object¶
+    soup = BeautifulSoup(response.text, "html.parser")
+    carSoup = soup.findAll("script", {"type": "text/javascript"})
