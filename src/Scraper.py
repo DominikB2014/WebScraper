@@ -15,22 +15,22 @@ def getCar(url:str):
     carSoup = soup.findAll("script", {"type": "text/javascript"})
 
     #Scrapes the price of the vehicle
-    price = str(soup.findAll("span", class_="vehicle-info__price-display"))[44:].\
-        strip("</span>]").replace(',','')
-    categories.append(('Price', price))
+    price = soup.findAll("span", class_="vehicle-info__price-display")
+    categories.append(('price', price[0].text))
 
     #Finds the body Style of a particular vehicle
     body = str(carSoup[0]).split("\n")[3]
-    m = re.search('"bodyStyle":"(.+?)"', body)
-    if m:
-        bodyStyle = m.group(1)
-    categories.append(('Body Style', bodyStyle))
+    c = re.search('"bodyStyle":"(.+?)"', body)
+    if c:
+        body = c.group(1)
+    categories.append(('Body Style', body))
 
     #Extract each category and their value
-    carSoup = soup.findAll("li", {"class": "vdp-details-basics__item"})
-    for car in carSoup:
-        car = str(car)[46:-13].split(":</strong><span> ")
+    for car in soup.findAll("li", {"class": "vdp-details-basics__item"}):
+        car = str(car.text).strip("\n")
+        car = car.split(": ")
         categories.append((car[0], car[1]))
+        print()
 
     return categories
 
