@@ -13,33 +13,21 @@ def getCar(url:str):
     # Parse HTML and save to BeautifulSoup object¶
     soup = BeautifulSoup(response.text, "html.parser")
     carSoup = soup.findAll('li', class_="vdp-details-basics__item")
-    price = str(soup.findAll("span",  ))[44:].strip("</span>]")
+
+    #Scrapes the price of the vehicle
+    price = str(soup.findAll("span", class_="vehicle-info__price-display"))[44:].strip("</span>]")
     values.append(price)
+
+    #Extract each category and their value
     for car in carSoup:
-        print(str(car)[30:])
+        car = str(car)[46:-13].split(":</strong><span> ")
+        categories.append(car[0])
+        values.append(car[1])
 
-#Comment
-
-    print(carSoup)
-
+    return categories, values
 
 # Set the URL you want to webscrape from
 url = 'https://www.cars.com/vehicledetail/detail/746043557/overview/'
-getCar(url)
-
-# for i in range(len(titles) - 1):
-#     car.append(str(carSoup[i]).split("<span> ")[-1].strip("</span>\n</li>"))e
-
-# catSoup = soup.findAll('strong')
-# carSoup = soup.findAll('span')
-
-
-# car = str(carSoup).split('</span>, ')[30:38]
-# category = str(catSoup).split('</strong>')[0:8]
-# category[0] = category[0][9:19]
-# car[0] = car[0][7:]
-#
-# # for i in range(1,len(category)):
-# #     category[i] = category[i][10:]
-# #     car[i] = car[i][7:]
-# #     print(category[i], car[i])
+cat, val = getCar(url)
+print(cat)
+print(val)
