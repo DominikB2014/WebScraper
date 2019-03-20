@@ -16,7 +16,7 @@ def getCar(url:str):
 
     #Scrapes the price of the vehicle
     price = soup.findAll("span", class_="vehicle-info__price-display")
-    categories.append(('price', price[0].text))
+    categories.append(('Price', str(price[0].text)[1:-1]))
 
     #Finds the body Style of a particular vehicle
     body = str(carSoup[0]).split("\n")[3]
@@ -30,7 +30,6 @@ def getCar(url:str):
         car = str(car.text).strip("\n")
         car = car.split(": ")
         categories.append((car[0], car[1]))
-        print()
 
     return categories
 
