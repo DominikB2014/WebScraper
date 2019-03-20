@@ -32,7 +32,7 @@ def getCar(url:str):
         car = str(car)[46:-13].split(":</strong><span> ")
         categories.append((car[0], car[1]))
 
-    return
+    return categories
 
 def start_scrape():
     response = requests.get(cars.com)
