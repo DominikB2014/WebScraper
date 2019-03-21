@@ -1,6 +1,7 @@
 import csv
+from Scraper import get_car
 
-from Constants import CATEGORIES
+from Constants import CATEGORIES, NUM_CAT
 file_name = "cars.csv"    # Name of file
 
 
@@ -10,23 +11,23 @@ def init_data():
         car_writer = csv.writer(cars_file, delimiter=',', quotechar='"',
                                      quoting=csv.QUOTE_MINIMAL)
 
-        car_writer.writerow(['Make', 'Model', 'Year', 'Price'] + categories)
+        car_writer.writerow(['Make', 'Model', 'Year'] + CATEGORIES)
 
 
-def write_car(make: str, model: str , year: str, values):
+def write_car(make: str, model: str , year: str, categories):
     """Adds a car to the database"""
     with open('../Data/cars.csv', mode='a', newline='') as cars_file:
         car_writer = csv.writer(cars_file, delimiter=',', quotechar='"',
                                      quoting=csv.QUOTE_MINIMAL)
-        car_writer.writerow([make, model, year] + filter_car(values))
+        car_writer.writerow([make, model, year] + filter_car(categories))
 
 
 def filter_car(values):
     """Filters out un-needed categories"""
     new_car = []
     i, j = 0, 0
-    while i < 7:
-        j = i
+    while i < NUM_CAT:
+        j = 0
         while j < len(values):
             if CATEGORIES[i] == values[j][0]:
                 new_car.append(values[j][1])
@@ -34,7 +35,7 @@ def filter_car(values):
                 break
             else:
                 j += 1
-        if j == len(values):
+        if j >= len(values):
             new_car.append('')
             i += 1
 
