@@ -40,7 +40,7 @@ def get_car(url: str):
     for car in soup.findAll("li", {"class": "vdp-details-basics__item"}):
         car = str(car.text).strip("\n")
         car = car.split(": ")
-        categories.append((car[0], car[1]))
+        categories.append((car))
 
     categories.append(('Link', url))
     return categories
