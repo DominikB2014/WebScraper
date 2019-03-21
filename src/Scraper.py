@@ -5,7 +5,8 @@ import time
 from bs4 import BeautifulSoup
 import re
 
-def getCar(url:str):
+
+def get_car(url:str):
     categories =[]
     # Connect to the URL
     response = requests.get(url)
@@ -32,6 +33,19 @@ def getCar(url:str):
         categories.append((car[0], car[1]))
 
     return categories
+
+
+def to_search_url(mk_id: str, md_id: str, yr_id: str) -> str:
+    """Converts to url using the id's for the: make, model, year"""
+    return "https://www.cars.com/for-sale/searchresults.action/?" \
+           "rd=99999&" \
+           "mkId=" + mk_id + \
+           "mdId=" + md_id +\
+           "&searchSource=ADVANCED_SEARCH&" \
+           "yrId" + yr_id + \
+           "&zc=60607" \
+           "&stkTypId=28880"
+
 
 def start_scrape():
     response = requests.get(cars.com)
