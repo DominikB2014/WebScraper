@@ -40,12 +40,14 @@ def to_search_url(mk_id: str, md_id: str, yr_id: str) -> str:
     return "https://www.cars.com/for-sale/searchresults.action/?" \
            "rd=99999&" \
            "mkId=" + mk_id + \
-           "mdId=" + md_id +\
+           "&mdId=" + md_id +\
            "&searchSource=ADVANCED_SEARCH&" \
            "yrId" + yr_id + \
            "&zc=60607" \
            "&stkTypId=28880"
 
+def to_make_url(mk_id: str) -> str:
+    return
 
 def start_scrape():
     response = requests.get(cars.com)
