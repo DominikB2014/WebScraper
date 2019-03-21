@@ -1,7 +1,9 @@
 from enum import Enum
 
-CATEGORIES = ['Body Style', 'Fuel Type', 'City MPG', 'Highway MPG', 'DriveTrain',
-              'Transmission', 'Engine']
+CATEGORIES = ['Price', 'Body Style', 'Fuel Type', 'City MPG', 'Highway MPG', 'DriveTrain',
+              'Transmission', 'Engine', 'Link']
+
+NUM_CAT = len(CATEGORIES)
 
 MAKES = [('Acura', '20001'),
          ('Alfa Romeo', '20047'),
