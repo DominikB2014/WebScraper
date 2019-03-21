@@ -1,12 +1,22 @@
 # Import libraries
 import requests
-import urllib.request
-import time
 from bs4 import BeautifulSoup
 import re
 
 
+def start_scrape():
+    """Begins to scrape all data from cars.com"""
+
+    response = requests.get("cars.com")
+
+    # Parse HTML and save to Beautiful lSoup object¶
+    soup = BeautifulSoup(response.text, "html.parser")
+    carSoup = soup.findAll("script", {"type": "text/javascript"})
+
+
 def get_car(url: str):
+    """Given a url to a ad, returns the properties of the vehicle"""
+
     categories = []
     # Connect to the URL
     response = requests.get(url)
@@ -33,6 +43,40 @@ def get_car(url: str):
         categories.append((car[0], car[1]))
 
     return categories
+
+
+def get_models(mk_id):
+    """Given a make name, returns the models of that make"""
+    models = []
+
+    # Connect to the URL
+    response = requests.get(to_url(mk_id))
+
+    # Parse HTML and save to BeautifulSoup object¶
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # Retrieves the HTML list of models
+    model_soup = soup.findAll("ul", {"class": "refinements"})[3]
+    model_soup = model_soup.findAll("label", class_='checkbox__label')
+
+    # Find all the model names and their id's
+    for m in model_soup:
+        model = str(m.text).strip()  # Represents the model of a vehicle
+        m_id = str(m).split("\"")[3].strip("mdId-") # Represents the id of a model
+        models.append((model, m_id))
+
+    return models
+
+
+
+
+    # models = str(model_soup.text).replace("  ", "")
+    # models = models.replace("\n"," ").strip().split("      ")
+    # print(models)
+
+
+
+
 
 
 def to_url(mk_id: str, md_id: str = False, yr_id: str = False) -> str:
@@ -62,13 +106,3 @@ def to_url(mk_id: str, md_id: str = False, yr_id: str = False) -> str:
            "&searchSource=ADVANCED_SEARCH&" \
            "yrId" + yr_id + \
            end_of_url
-
-
-def start_scrape():
-    """Begins to scrape all data from cars.com"""
-
-    response = requests.get(cars.com)
-
-    # Parse HTML and save to Beautiful lSoup object¶
-    soup = BeautifulSoup(response.text, "html.parser")
-    carSoup = soup.findAll("script", {"type": "text/javascript"})
