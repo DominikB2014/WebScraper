@@ -10,7 +10,8 @@ class SkTypeID(Enum):
     All = ''
     New = '28880'
     Used = '28881'
-    Certified ='28444'
+    Certified = '28444'
+
 
 MAKES = (('Acura', '20001'),
          ('Alfa Romeo', '20047'),
