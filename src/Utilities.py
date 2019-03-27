@@ -10,6 +10,7 @@ def get_car(url: str):
 
     categories = []
     # Connect to the URL
+    print(url)
     try:
         response = requests.get(url)
     except TimeoutError:

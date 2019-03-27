@@ -1,6 +1,7 @@
 from Utilities import *
 from Data.Constants import *
 import Write
+import multiprocessing
 
 
 def write_all_makes(models_per_year, file_name, sk_id=SkTypeID.All):
@@ -28,6 +29,10 @@ def write_model(make_index, model_index, models_per_year, file_name, sk_id=SkTyp
         links = get_car_links(make[1], model[1], YEAR_IDS[year], sk_id)
         links = links[0:models_per_year]
         print(year + " " + make[0] + " " + model[0] + ": Writing")
+        inputs = []
         for url in links:
-            print(url)
-            Write.write_car(make[0], model[0], year, get_car(url), file_name)
+            inputs.append([make[0], model[0], year, get_car(url), file_name])
+        if __name__ == '__main__':
+            pool = multiprocessing.Pool()
+            pool.map(write_model, inputs)
+            pool.close()
