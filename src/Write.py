@@ -1,11 +1,9 @@
 import csv
-from Scraper import get_car
 
-from Constants import CATEGORIES, NUM_CAT
-file_name = "cars.csv"    # Name of file
+from Data.Constants import CATEGORIES, NUM_CAT
 
 
-def init_data():
+def init_data(file_name):
     """Resets/Sets the data"""
     with open('../Data/' + file_name, mode='w', newline='') as cars_file:
         car_writer = csv.writer(cars_file, delimiter=',', quotechar='"',
@@ -14,9 +12,11 @@ def init_data():
         car_writer.writerow(['Make', 'Model', 'Year'] + CATEGORIES)
 
 
-def write_car(make: str, model: str, year: str, categories):
+def write_car(make: str, model: str, year: str, categories, file_name):
     """Adds a car to the database"""
-    with open('../Data/cars.csv', mode='a', newline='') as cars_file:
+    if categories is None:
+        return None
+    with open('../Data/' + file_name, mode='a', newline='') as cars_file:
         car_writer = csv.writer(cars_file, delimiter=',', quotechar='"',
                                      quoting=csv.QUOTE_MINIMAL)
         car_writer.writerow([make, model, year] + filter_car(categories))

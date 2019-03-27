@@ -10,24 +10,35 @@ def get_car(url: str):
 
     categories = []
     # Connect to the URL
-    response = requests.get(url)
+    try:
+        response = requests.get(url)
+    except TimeoutError:
+        print("Timeout Error")
+        return None
+
 
     # Parse HTML and save to BeautifulSoup object¶
     soup = BeautifulSoup(response.text, "html.parser")
     carSoup = soup.findAll("script", {"type": "text/javascript"})
 
     # Scrapes the price of the vehicle
-    price = soup.findAll("span", class_="vehicle-info__price-display")
-    categories.append(('Price', str(price[0].text)[1:]))
+    try:
+        price = soup.findAll("span", class_="vehicle-info__price-display")
+        categories.append(('Price', str(price[0].text)[1:]))
+    except IndexError:
+        categories.append(('Price', ""))
 
     # Finds the body Style and trim of a particular vehicle
-    vehicle = str(carSoup[0]).split("\n")[3]
-    c = re.search('"bodyStyle":"(.*?)"', vehicle)
-    t = re.search('"trim":"(.*?)"', vehicle)
-    if c:
-        categories.append(('Body Style', c.group(1)))
-    if t:
-        categories.append(('Trim', t.group(1)))
+    try:
+        vehicle = str(carSoup[0]).split("\n")[3]
+        c = re.search('"bodyStyle":"(.*?)"', vehicle)
+        t = re.search('"trim":"(.*?)"', vehicle)
+        if c:
+            categories.append(('Body Style', c.group(1)))
+        if t:
+            categories.append(('Trim', t.group(1)))
+    except IndexError:
+        pass
 
     # Extract each category and their value
     for car in soup.findAll("li", {"class": "vdp-details-basics__item"}):
@@ -51,8 +62,9 @@ def get_years(mk_id, md_id, sk_id=SkTypeID.All):
 
     # Retrieves the HTML list of years of a particular model
     model_soup = soup.findAll("div", {"class": "select"})[2]
-    year_soup = model_soup.findAll("option") # each element is a particular year
-
+    year_soup = model_soup.findAll("option")# each element is a particular year
+    if len(year_soup) == 0 or not str(year_soup[0].text).isdigit():
+        return years
     for i in year_soup:
         years.append(i.text)
 

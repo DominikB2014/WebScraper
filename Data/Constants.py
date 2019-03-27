@@ -1,6 +1,6 @@
 from enum import Enum
 
-CATEGORIES = ['Price', 'Body Style', 'Fuel Type', 'City MPG', 'Highway MPG', 'DriveTrain',
+CATEGORIES = ['Price', 'Body Style', 'Trim', 'Fuel Type', 'City MPG', 'Highway MPG', 'DriveTrain',
               'Transmission', 'Engine', 'Link']
 
 NUM_CAT = len(CATEGORIES)
@@ -232,7 +232,7 @@ MODELS = ([('CL', '20773'), ('ILX', '47843'), ('ILX Hybrid', '48964'), ('Integra
             [('1800', '20329'), ('240', '20359'), ('544', '20503'), ('850', '20546'), ('940', '20585'), ('960', '20588'), ('C30', '20749'), ('C70', '20751'), ('S40', '21857'), ('S60', '21916'), ('S60 Cross Country', '30000874'), ('S60 Inscription', '30019645'), ('S70', '21918'), ('S80', '21920'), ('S90', '21864'), ('S90 Hybrid', '36326814'), ('V40', '22349'), ('V50', '22251'), ('V60', '56208'), ('V60 Cross Country', '30003796'), ('V70', '22350'), ('V90', '22351'), ('V90 Cross Country', '36281513'), ('XC40', '36362500'), ('XC60', '22379'), ('XC60 Hybrid', '36321398'), ('XC70', '22313'), ('XC90', '22380'), ('XC90 Hybrid', '30023481'), ('Unknown', '29629')],
             [])
 
-YEAR_IDS:{'1899': '20146',
+YEAR_IDS = {'1899': '20146',
           '1912': '20097',
             '1918': '20100',
              '1922': '20102',
