@@ -90,6 +90,29 @@ def get_years(mk_id:str, md_id:str):
 
     return years
 
+def get_year_ids():
+    """Given the make id and model id, returns the years of that car"""
+    year_ids = {}
+
+    # Connect to the URL
+    response = requests.get("https://www.cars.com/for-sale/searchresults.action/?rd=99999"
+                            "&searchSource=ADVANCED_SEARCH&yrId=20199&yrId=20143&yrId=20198"
+                            "&zc=60606")
+
+    # Parse HTML and save to BeautifulSoup object¶
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # Retrieves the HTML list of years of a particular model
+    model_soup = soup.findAll("div", {"class": "select"})[2]
+    year_soup = model_soup.findAll("option")  # each element is a particular year
+
+    for i in year_soup:
+        year = i.text
+        y = re.search('value="(.*?)"', str(i))
+        year_ids[year] = y.group(1)
+
+    return year_ids
+
 
 def to_url(mk_id: str, md_id: str = False, yr_id: str = False ) -> str:
     """Converts to url using the id's for the: make, model, year"""
