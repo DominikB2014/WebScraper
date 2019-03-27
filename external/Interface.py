@@ -3,6 +3,11 @@ from Data.Constants import *
 import Write
 
 
+def write_all_makes(models_per_year, file_name, sk_id=SkTypeID.All):
+    for i in range(0, len(MAKES)):
+        write_make(i, models_per_year, file_name, sk_id)
+
+
 def write_make(make_index, models_per_year, file_name, sk_id=SkTypeID.All):
     num_models = len(MODELS[make_index])
     for i in range(0, num_models):

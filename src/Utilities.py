@@ -61,8 +61,11 @@ def get_years(mk_id, md_id, sk_id=SkTypeID.All):
     soup = BeautifulSoup(response.text, "html.parser")
 
     # Retrieves the HTML list of years of a particular model
-    model_soup = soup.findAll("div", {"class": "select"})[2]
-    year_soup = model_soup.findAll("option")# each element is a particular year
+    try:
+        model_soup = soup.findAll("div", {"class": "select"})[2]
+        year_soup = model_soup.findAll("option")# each element is a particular year
+    except IndexError:
+        return years
     if len(year_soup) == 0 or not str(year_soup[0].text).isdigit():
         return years
     for i in year_soup:

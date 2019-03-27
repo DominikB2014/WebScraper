@@ -5,4 +5,6 @@ file_name = "newCars.csv"
 make = 24
 
 init_data(file_name)
-write_make(make - 1, 5, file_name, SkTypeID.New)
+# write_make(make - 1, 5, file_name, SkTypeID.New)
+
+write_all_makes(5, file_name, SkTypeID.New)

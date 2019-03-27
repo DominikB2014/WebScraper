@@ -1,7 +1,7 @@
 from enum import Enum
 
-CATEGORIES = ['Price', 'Body Style', 'Trim', 'Fuel Type', 'City MPG', 'Highway MPG', 'DriveTrain',
-              'Transmission', 'Engine', 'Link']
+CATEGORIES = ['Price', 'Body Style', 'Trim', 'Fuel Type', 'City MPG', 'Highway MPG',
+              'Drivetrain','Transmission', 'Engine', 'Link']
 
 NUM_CAT = len(CATEGORIES)
 
