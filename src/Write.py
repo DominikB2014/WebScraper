@@ -14,7 +14,7 @@ def init_data():
         car_writer.writerow(['Make', 'Model', 'Year'] + CATEGORIES)
 
 
-def write_car(make: str, model: str , year: str, categories):
+def write_car(make: str, model: str, year: str, categories):
     """Adds a car to the database"""
     with open('../Data/cars.csv', mode='a', newline='') as cars_file:
         car_writer = csv.writer(cars_file, delimiter=',', quotechar='"',
