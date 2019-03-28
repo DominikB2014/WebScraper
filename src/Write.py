@@ -1,5 +1,5 @@
 import csv
-
+from Utilities import get_car
 from Data.Constants import CATEGORIES, NUM_CAT
 
 
@@ -12,7 +12,8 @@ def init_data(file_name):
         car_writer.writerow(['Make', 'Model', 'Year'] + CATEGORIES)
 
 
-def write_car(make: str, model: str, year: str, categories, file_name):
+def write_car(make: str, model: str, year: str, url, file_name):
+    categories = get_car(url)
     """Adds a car to the database"""
     if categories is None:
         return None
